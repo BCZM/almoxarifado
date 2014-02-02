@@ -1,25 +1,7 @@
-almoxarifado
-============
+Almoxarifado
+==
 
-sistema almoxarifado bczm
-
-Instalação 
-
-Passo1:
-  execute o sql no banco de dados.
-  
-  obs.:Script sql encontrado na pasta docs
-  
-Passo2:
-  Altere o arquivo configDB.php 
-  
-  Obs.: configDB.php encontrado na pasta system
-  
-    
-reMax
-====
-
-###Programas necessários para instalação do reMax
+###Programas necessários para instalação do Almoxarifado
 
 1- Servidor apache com PHP obs.:  PHP 5.3 (ou superior);
 
