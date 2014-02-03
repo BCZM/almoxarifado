@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : local
+Source Server         : mysqlWamp
 Source Server Version : 50612
 Source Host           : localhost:3306
 Source Database       : novoalmoxarifado
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50612
 File Encoding         : 65001
 
-Date: 2014-02-03 11:02:24
+Date: 2014-02-03 13:24:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -2057,7 +2057,6 @@ INSERT INTO `permissao` VALUES ('29', '4');
 INSERT INTO `permissao` VALUES ('29', '5');
 INSERT INTO `permissao` VALUES ('29', '6');
 INSERT INTO `permissao` VALUES ('29', '7');
-INSERT INTO `permissao` VALUES ('29', '8');
 INSERT INTO `permissao` VALUES ('29', '9');
 INSERT INTO `permissao` VALUES ('29', '10');
 INSERT INTO `permissao` VALUES ('29', '12');
@@ -2067,7 +2066,6 @@ INSERT INTO `permissao` VALUES ('29', '16');
 INSERT INTO `permissao` VALUES ('29', '17');
 INSERT INTO `permissao` VALUES ('29', '18');
 INSERT INTO `permissao` VALUES ('29', '19');
-INSERT INTO `permissao` VALUES ('29', '20');
 INSERT INTO `permissao` VALUES ('29', '21');
 INSERT INTO `permissao` VALUES ('29', '22');
 INSERT INTO `permissao` VALUES ('29', '23');

@@ -9,8 +9,8 @@
 <h2>Requisição</h2>
 
 <div id="botoes">
-    <a href="<?=BARRA.url_base.BARRA?>menu/material"><img src="<?=BASEIMAGES?>setor.png" />Material</a>
-    <a href="<?=BARRA.url_base.BARRA?>menu/requisicao"><img src="<?=BASEIMAGES?>user.png" />Requisição</a>
+    <a href="<?=BARRA.url_base.BARRA?>menu/material"><img src="<?=BARRA.url_base.BARRA.BASEIMAGES?>setor.png" />Material</a>
+    <a href="<?=BARRA.url_base.BARRA?>menu/requisicao"><img src="<?=BARRA.url_base.BARRA.BASEIMAGES?>user.png" />Requisição</a>
     
 </div>
 

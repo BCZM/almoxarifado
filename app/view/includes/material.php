@@ -9,7 +9,8 @@
          } 
          
         $usuario = $_SESSION['session']['logado']['permissao']['action'];  
-      $cadastrar = FALSE; 
+      $cadastrar = FALSE;
+  $cadrequisicao = FALSE;
         $deletar = FALSE; $deletar_txt = ''; 
         $editar  = FALSE; $editar_txt  = '';
       $barra_txt = '';
@@ -22,7 +23,10 @@
                }
             if($ls['link']=='editarmaterial'){
                 $editar = TRUE;
-            }   
+            }
+            if($ls['link']=='cadastrarrequisicao'){
+                $cadrequisicao = TRUE;
+            }            
         } 
          
          if($editar || $deletar){
@@ -48,7 +52,8 @@
 <?php
     if($cadastrar):
 ?>
-<a href="#dialog" name="modal" ><img src="<?=BARRA.url_base.BARRA.BASEIMAGES?>add_user.png" />Adicionar novo</a>
+    <a href="#dialog" name="modal" ><img src="<?=BARRA.url_base.BARRA.BASEIMAGES?>plus.png" />Adicionar novo</a>
+
 <div id="dialog" class="window" >
     
     <a href="#" class="close">Fechar [X]</a>
@@ -84,7 +89,14 @@
 <?php
     endif;
 ?>
+<?php
+    if($cadrequisicao):
+?>
+    <a href="#" id="opcoes"  ><img src="<?=BARRA.url_base.BARRA.BASEIMAGES?>plus.png" />Realizar requisição</a>
 
+<?php
+    endif;
+?>
 	<h3>Listar Material</h3>
         <table cellpadding="0" cellspacing="0" border="0" class="display" id="material" name="datatable">
 	<thead>
@@ -132,6 +144,41 @@
       </tbody>
 </table>
 </div>
+<?php
+    if($cadrequisicao):
+?>
+<div class="modulo">
+    <div id="" class="opcoes" >
+    
+            <form  action="<?=BARRA.url_base?>/setor/cadastrarmaterial" method="post">
+                    <p>
+                            <strong>Grupo:</strong><br />
+                            <select name="material" style="width: 260px;" >
+				<option value="-1" selected>Selecione o material</option>
+                            <?php
+                            foreach ($grupo as $ls){
+                                    echo "<option value='{$ls['codigo']}'>".utf8_encode($ls['nome'])."</option>";                                
+                            }
+                            ?>
+                             </select>
+                    </p>
+                    <p>
+                            <strong>Código do material:</strong><br />
+                            <input type="number" name="codigoSetor" style="width: 260px;" value="" required="required" />
+                    </p>
+                    <p>
+                            <strong>Descrição:</strong><br />
+                            <input type="text" name="codigoSetor" style="width: 260px;" value="" required="required" />
+                    </p>
+                    <p>
+                        <input type="submit" name="insertS" value="Cadastrar material" />
+                    </p>
+            </form>
+    </div>
+</div>
+<?php
+    endif;
+?>
 
 <!--
 	Fim de conteúdo
