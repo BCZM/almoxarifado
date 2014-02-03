@@ -23,5 +23,15 @@ Almoxarifado
 4- Coloque o código fonte no servidor;
 
 5- Execute o sql no banco de dados. obs.:Script sql encontrado na pasta docs/
+  5.1- Sequencia dos scripts:
+    
+      1º) tipousuario
+      2º) setor  
+      3º) menu
+      4º) status
+      5º) categoria
+      6º) material
+      7º) usuario
+      8º) aquisicao
 
 6- Altere o arquivo configDB.php. Obs.: configDB.php encontrado na pasta system/
