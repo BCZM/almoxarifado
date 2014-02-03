@@ -61,7 +61,7 @@ if($cadastrar):
                                 
                                 
                                 foreach ($setores as $ls){
-                                        echo "<option value='{$ls['idsetor']}'>{$ls['nome']}</option>";
+                                        echo "<option value='{$ls['codigo']}'>".utf8_encode($ls['nome'])."</option>";
                                     }
                                     
                                 ?>
@@ -166,7 +166,7 @@ if($cadastrar):
                   echo 
                       "<tr>"
                       ."<td>{$ls['login']}</td>"
-                      ."<td>{$ls['nome']}</td>"
+                      ."<td>".utf8_encode($ls['nome'])."</td>"
                       ."<td>{$ls['setor']}</td>"
                       .$td_inicio
                       .$editar_usuario

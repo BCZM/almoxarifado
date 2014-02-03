@@ -54,8 +54,7 @@
 </div>
 <?php
     endif;
-?>
-        <?php 
+
               if($editar || $deletar){
                   $th_inicio = "<th>";
                   $th_fim    = "</th>";  
@@ -73,7 +72,7 @@
               } 
         ?>
 	<h3>Listar setores</h3>
-        <table cellpadding="0" cellspacing="0" border="0" class="display" name="datatable">
+        <table cellpadding="0" cellspacing="0" border="0" class="display"  name="datatable">
 	<thead>
 		<tr>
 			<th>Nome</th>
@@ -93,12 +92,12 @@
         
         <?php            
               foreach ($setores as $ls){
-       $deletar_setor = ($deletar) ? "<a href='".BARRA.url_base."/setor/deletarsetor/idsetor/{$ls['idsetor']}' onclick=\"return confirm('Deseja realmente excluir o setor {$ls['nome']}?');\"  title='Excluir' ><img alt='excluir' src='".BARRA.url_base.BARRA.BASEIMAGES."excluir.png' /></a>":''; 
-       $editar_setor  = ($editar)  ? "<a href='".BARRA.url_base."/menu/editarsetor/id/{$ls['idsetor']}' onclick=\"return confirm('Deseja realmente editar o setor {$ls['nome']}?');\" title='Editar' ><img alt='editar' src='".BARRA.url_base.BARRA.BASEIMAGES."editar.png' /></a>":'';                     
+       $deletar_setor = ($deletar) ? "<a href='".BARRA.url_base."/setor/deletarsetor/codigo/{$ls['codigo']}' onclick=\"return confirm('Deseja realmente excluir o setor ".utf8_encode($ls['nome'])."?');\"  title='Excluir' ><img alt='excluir' src='".BARRA.url_base.BARRA.BASEIMAGES."excluir.png' /></a>":''; 
+       $editar_setor  = ($editar)  ? "<a href='".BARRA.url_base."/menu/editarsetor/id/{$ls['codigo']}' onclick=\"return confirm('Deseja realmente editar o setor ".utf8_encode($ls['nome'])."?');\" title='Editar' ><img alt='editar' src='".BARRA.url_base.BARRA.BASEIMAGES."editar.png' /></a>":'';                     
        
                    echo 
                       "<tr>"
-                      ."<td>".$ls['nome']."</td>"
+                      ."<td>".utf8_encode($ls['nome'])."</td>"
                       ."<td>".$ls['codigo']."</td>"
                       .$td_inicio
                       .$editar_setor

@@ -20,7 +20,14 @@ class setor extends controller{
 
    public function alterarnomesetor($setor){
         if(isset($_POST['newname']) && $_POST['newname'] != NULL){
-            $this->editar(array('nome'=>$_POST['newname']), $setor[0]['parametro'].'='.$setor[0]['valor']);
+            
+            $codigo = addslashes($_POST['newname']);
+            $ret = crud::consultar(array('nome'),'setor', "nome='{$codigo}'" );
+            if(empty($ret))
+            $this->editar(array('nome'=>$_POST['newname']), "{$setor[0]['parametro']}='{$setor[0]['valor']}'");
+            else 
+               $_SESSION['msg'] = 'Falha: O nome informado já foi cadastrado!';
+
           }
         else {
             $_SESSION['msg'] = "Novo nome não foi informado!";
@@ -44,6 +51,8 @@ class setor extends controller{
    }
 
     private function editar(array $array,$where){
+        var_dump($array);
+        var_dump($where);
         $return = crud::atualizar('setor', $array, $where );
         if($return > 0){ 
           $_SESSION['msg'] = "Editado com sucesso!";
@@ -56,9 +65,9 @@ class setor extends controller{
    
     public function deletarsetor($setor){
        $idsetor = addslashes($setor[0]['valor']);
-       $ret = crud::consultar(array('nome'), 'usuario', "setor_idsetor='{$idsetor}'" );
+       $ret = crud::consultar(array('nome'), 'usuario', "setor_codigo='{$idsetor}'" );
        if(empty($ret)){
-            $return = crud::deletar('setor', "idsetor={$setor[0]['valor']}"); 
+            $return = crud::deletar('setor', "codigo={$setor[0]['valor']}"); 
             if($return > 0){ 
                $_SESSION['msg'] = 'Excluido com sucesso!';
              }

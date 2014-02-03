@@ -48,6 +48,15 @@
                     <input type="submit" name="alterarN" value="Alterar nome" />
 		</p>
                 </form>
+                <form method="post" action="<?=BARRA.url_base?>/usuario/alterarsenhausuario/id/<?=$usuario[0]['idusuario']?>">
+                <p>	
+                        <strong>Nova senha</strong><br />
+                        <input type="password" name="newsenha" />
+		</p>
+		<p>
+                    <input type="submit" name="alterarS" value="Alterar senha" />
+		</p>
+                </form>
                 <form method="post">
 		<p>
                     <strong>É administrador?</strong><br />
@@ -94,7 +103,7 @@
                           }//fim foreach para permissões
                             
                         echo "<p {$disabled}>
-                              <input type='checkbox' name='permissao[]' {$check} {$disabled} value='{$ls['idmenu']}'>{$ls['nome']}{$aba_menu}<br>
+                              <input type='checkbox' name='permissao[]' {$check} {$disabled} value='{$ls['idmenu']}'>".utf8_encode($ls['nome']).$aba_menu."<br>
                               </p>";
                                   
                                

@@ -32,14 +32,13 @@ $(function(){
          
 
         /* Init the table */
-        oTable = $('table[name=datatable]').dataTable(  {
+       oTable = $('table[name=datatable]').dataTable(  {
                         "sScrollY": 200,
                         "sScrollX": "100%",
                         "sScrollXInner": "100%"
                         
                 })
     ;
-    
    
   
         

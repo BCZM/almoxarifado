@@ -1,6 +1,6 @@
 ﻿<?php if(!defined('BASEPATH')) exit('Falha no carregamento do BASEPATH!');
 #seguranca_arq();
- ?>
+?>
 <!--
 	Início de conteúdo
 -->

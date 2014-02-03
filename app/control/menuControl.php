@@ -89,6 +89,17 @@ class menu extends controller {
     
     //RELACIONADO AO MATERIAL
     public function material(){
+        //titulo da pagina
+        $this->atr_page['titulo'] = 'AlmoXerife: Material';	
+        //classe do controle 
+        $this->atr_page['control'] = 'menu/';
+        
+        $this->atr_page['materiais'] =  crud::consultar(array('*'), 'material');
+        
+        $this->atr_page['grupos'] =  crud::consultar(array('*'), 'categoria');
+
+        
+        $this->res[] = $this->atr_page;
        $this->view('material',  $this->res);    
     }
     public function cadastrarmaterial(){
@@ -140,7 +151,7 @@ class menu extends controller {
         $this->atr_page['control'] = 'menu/';
         //carrega usuarios
         $this->atr_page['usuarios'] = crud::consultar(array('login','nome',
-            '(SELECT nome FROM setor WHERE idsetor = setor_idsetor) as setor','idusuario'),'usuario'); 
+            'setor_codigo as setor','idusuario'),'usuario'); 
         //carrega setores
         $this->atr_page['setores'] =  crud::consultar(array('*'), 'setor');
         //carrega menus e actions
@@ -158,9 +169,14 @@ class menu extends controller {
         //classe do controle 
         $this->atr_page['control'] =  'menu/';
         //carrega usuario
-        $this->atr_page['usuario'] =  crud::consultar(array('login','nome',
-            '(SELECT nome FROM setor WHERE idsetor=setor_idsetor)as setor',
-            'tipousuario_idtipousuario as tipo','idusuario'), 'usuario',"idusuario='{$id[0]['valor']}'");
+        $this->atr_page['usuario'] =  crud::consultar(array(
+            'login',
+            'nome',
+            'setor_codigo as setor',
+            'tipousuario_idtipousuario as tipo',
+            'idusuario'), 
+                'usuario',
+                "idusuario='{$id[0]['valor']}'");
         //carrega menus e actions
         $this->atr_page['menus_actions'] = crud::consultar(array('*'), 'menu'); 
         
@@ -209,7 +225,7 @@ class menu extends controller {
         //classe do controle 
         $this->atr_page['control'] =  'menu/';
         
-        $this->atr_page['setor'] =  crud::consultar(array('*'), 'setor',"idsetor='{$id[0]['valor']}'");
+        $this->atr_page['setor'] =  crud::consultar(array('*'), 'setor',"codigo='{$id[0]['valor']}'");
         
         $this->res[] = $this->atr_page;
         $this->view('alterarsetor',  $this->res);

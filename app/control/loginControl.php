@@ -17,10 +17,15 @@ class login extends controller {
     }
     private function verificaUsu($login=null,$senha=NULL){
         $senha = md5($senha);
-        $ret = crud::consultar(array('login','nome',
-            '(SELECT nome FROM setor WHERE idsetor=setor_idsetor) as setor',
-            '(SELECT tipo FROM tipousuario WHERE idtipousuario=tipousuario_idtipousuario) as tipo',
-            'idusuario'),'usuario',"login='{$login}' AND senha='{$senha}' " );
+        $ret = crud::consultar(array(
+            'login',
+            'nome',
+            'setor_codigo as setor',
+            'tipousuario_idtipousuario',
+            'idusuario'
+            ),
+                'usuario',
+                "login='{$login}' AND senha='{$senha}' " );
 
         if(!empty($ret)){
              return $ret;

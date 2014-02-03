@@ -86,6 +86,13 @@ class usuario extends controller {
      else $_SESSION['msg'] = 'O novo login precisa ser informado!';
    redirecionar("menu/editarusuario/id/{$id[0]['valor']}");       
  }
+ public function alterarsenhausuario($id){
+     if(isset($_POST['newsenha'])&& $_POST['newsenha'] != NULL){
+             $this->editar(array('senha'=>md5($_POST['newsenha'])), "idusuario={$id[0]['valor']}");
+     }
+     else $_SESSION['msg'] = 'A nova senha precisa ser informada!';
+    redirecionar("menu/editarusuario/id/{$id[0]['valor']}");       
+ }
  public function alterarpermissaousuario($id){
      if(isset($_POST['permissao']) && $_POST['permissao'] != NULL ){
         $permissao = $_POST['permissao'];
