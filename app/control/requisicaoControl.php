@@ -44,6 +44,12 @@ class requisicao extends controller {
         
      redirecionar('menu/material');        
     }
+    
+    public function ativarreq(){
+          $_SESSION['addOn']=TRUE;
+    
+     redirecionar('menu/material');                  
+    }
 }
 
 

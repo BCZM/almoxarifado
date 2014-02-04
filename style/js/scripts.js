@@ -53,6 +53,20 @@ $('#opcoes').click(function (){
 });
 //FIM
 
+$("input[class=editar]").attr('disabled',true);
 
-});   
-   
+
+}); 
+
+function exibir(obj){
+    //alert(obj.id);
+    if(obj.checked){
+        //alert('checado!');
+        $("input[name="+obj.id+"]").removeAttr('disabled');
+    }
+    else{
+        //alert('nao checado');
+            $("input[name="+obj.id+"]").attr('disabled',true);
+        }
+}   
+

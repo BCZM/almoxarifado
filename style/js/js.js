@@ -33,14 +33,14 @@ $(function(){
 
         /* Init the table */
        oTable = $('table[name=datatable]').dataTable(  {
-                        "sScrollY": 200,
+                        "sScrollY": 400,
                         "sScrollX": "100%",
                         "sScrollXInner": "100%"
                         
                 })
     ;
         Table = $('#material').dataTable(  {
-                        "sScrollY": 200,
+                       // "sScrollY": 400,
                         "sScrollX": "100%",
                         "sScrollXInner": "100%"
                         
