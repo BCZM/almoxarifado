@@ -22,15 +22,15 @@
                         
                 ?>
 		<p>
-                    <strong>Login atual:</strong> <?=$usuario[0]['login'] ?> 
+                    <strong>Login atual:</strong> <?php echo $usuario[0]['login'] ?> 
 		</p>
 		<p>
-                    <strong>Nome atual:</strong> <?=$usuario[0]['nome']?>  
+                    <strong>Nome atual:</strong> <?php echo $usuario[0]['nome']?>  
 		</p>
 		<p>
-                    <strong>É administrador ? </strong><?= $usuario[0]['tipo'] == 1 ? ' SIM':  ' NÃO' ?>
+                    <strong>É administrador ? </strong><?php echo  $usuario[0]['tipo'] == 1 ? ' SIM':  ' NÃO' ?>
 		</p>
-                <form method="post" action="<?=BARRA.url_base?>/usuario/alterarloginusuario/id/<?=$usuario[0]['idusuario']?>" >
+                <form method="post" action="<?php echo BARRA.url_base?>/usuario/alterarloginusuario/id/<?php echo $usuario[0]['idusuario']?>" >
 		<p>
 			<strong>Novo Login</strong><br />
                         <input type="text" name="newlogin" />
@@ -39,7 +39,7 @@
                     <input type="submit" name="alterarL" value="Alterar Login" />
 		</p>
                 </form>
-                <form method="post" action="<?=BARRA.url_base?>/usuario/alterarnomeusuario/id/<?=$usuario[0]['idusuario']?>">
+                <form method="post" action="<?php echo BARRA.url_base?>/usuario/alterarnomeusuario/id/<?php echo $usuario[0]['idusuario']?>">
                 <p>	
                         <strong>Novo nome</strong><br />
                         <input type="text" name="newnome" />
@@ -48,7 +48,7 @@
                     <input type="submit" name="alterarN" value="Alterar nome" />
 		</p>
                 </form>
-                <form method="post" action="<?=BARRA.url_base?>/usuario/alterarsenhausuario/id/<?=$usuario[0]['idusuario']?>">
+                <form method="post" action="<?php echo BARRA.url_base?>/usuario/alterarsenhausuario/id/<?php echo $usuario[0]['idusuario']?>">
                 <p>	
                         <strong>Nova senha</strong><br />
                         <input type="password" name="newsenha" />
@@ -60,14 +60,14 @@
                 <form method="post">
 		<p>
                     <strong>É administrador?</strong><br />
-                        <INPUT TYPE="RADIO" NAME="tipo" <?=$usuario[0]['tipo'] == 1 ? 'checked':'' ?> VALUE="1">SIM<br /> 
-                        <INPUT TYPE="RADIO" NAME="tipo" <?=$usuario[0]['tipo'] != 1 ? 'checked':'' ?> VALUE="2">NÃO                            
+                        <INPUT TYPE="RADIO" NAME="tipo" <?php echo $usuario[0]['tipo'] == 1 ? 'checked':'' ?> VALUE="1">SIM<br /> 
+                        <INPUT TYPE="RADIO" NAME="tipo" <?php echo $usuario[0]['tipo'] != 1 ? 'checked':'' ?> VALUE="2">NÃO                            
 		</p>
 		<p>
                     <input type="submit" name="alterarA" value="Alterar administração" />
 		</p>
                 </form>
-                <form method="post" action="<?=BARRA.url_base?>/usuario/alterarpermissaousuario/id/<?=$usuario[0]['idusuario']?>">
+                <form method="post" action="<?php echo BARRA.url_base?>/usuario/alterarpermissaousuario/id/<?php echo $usuario[0]['idusuario']?>">
                 <p>
                     <strong>Permissões:</strong><br />
                     <?php

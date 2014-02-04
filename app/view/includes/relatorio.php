@@ -3,7 +3,7 @@ $(function(){
        $('#example').dataTable( {
                     "sDom": 'T<"clear">lfrtip',
                     "oTableTools": {
-                        "sSwfPath": "<?= BARRA.url_base.BARRA.BASEJS ?>swf/copy_csv_xls_pdf.swf"
+                        "sSwfPath": "<?php echo  BARRA.url_base.BARRA.BASEJS ?>swf/copy_csv_xls_pdf.swf"
                         ,"aButtons":["print"]
                     }
 	} ).columnFilter({aoColumns:[
@@ -19,13 +19,13 @@ $(function(){
 <div class="modulo">
     <h1>Relatório</h1>
 
-<a href="#dialog" name="modal" ><img src="<?=BARRA.url_base.BARRA.BASEIMAGES?>add_user.png" />Adicionar novo</a>
+<a href="#dialog" name="modal" ><img src="<?php echo BARRA.url_base.BARRA.BASEIMAGES?>add_user.png" />Adicionar novo</a>
 <div id="dialog" class="window" >
     
     <a href="#" class="close">Fechar [X]</a><br />
     <div class="content_dialog">
     <h3>Inserir setor</h3>
-            <form  action="<?=BARRA.url_base?>/setor/cadastrarsetor" method="post">
+            <form  action="<?php echo BARRA.url_base?>/setor/cadastrarsetor" method="post">
                 <div class="pos_center">
                     <p>
                             <strong>Nome do setor</strong><br />

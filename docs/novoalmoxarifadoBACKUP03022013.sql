@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : mysqlWamp
-Source Server Version : 50612
+Source Server         : local
+Source Server Version : 50524
 Source Host           : localhost:3306
 Source Database       : novoalmoxarifado
 
 Target Server Type    : MYSQL
-Target Server Version : 50612
+Target Server Version : 50524
 File Encoding         : 65001
 
-Date: 2014-02-03 13:24:34
+Date: 2014-02-03 18:09:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;

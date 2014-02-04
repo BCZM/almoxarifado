@@ -33,13 +33,13 @@
         
 if($cadastrar):
 ?>
-<a href="#dialog_cadUsu" name="modal" ><img src="<?=BARRA.url_base.BARRA.BASEIMAGES?>add_user.png" />Adicionar novo</a>
+<a href="#dialog_cadUsu" name="modal" ><img src="<?php echo BARRA.url_base.BARRA.BASEIMAGES?>add_user.png" />Adicionar novo</a>
 <div id="dialog_cadUsu" class="window" >
     
     <a href="#" class="close">Fechar [X]</a><br />
     <div class="content_dialog">
 <h3>Inserir usuário</h3>	
-        <form id="" method="post" action="<?=BARRA.url_base?>/usuario/cadastrarusuario">
+        <form id="" method="post" action="<?php echo BARRA.url_base?>/usuario/cadastrarusuario">
             <div class="pos_esq" >
 		<p>
 			<strong>Login</strong><br />
@@ -145,7 +145,7 @@ if($cadastrar):
 			<th>Login</th>
 			<th>Nome</th>
 			<th>Setor</th>
-                         <?=
+                         <?php echo 
                             
                                  $th_inicio   
                                 .$editar_txt

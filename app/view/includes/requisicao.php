@@ -8,7 +8,7 @@
 <!--
 	Início de conteúdo
 -->
-<a href="?action=cadastrarrequisicao"><img src="<?=BASEIMAGES?>add_user.png" />Adicionar novo</a>
+<a href="?action=cadastrarrequisicao"><img src="<?php echo BASEIMAGES?>add_user.png" />Adicionar novo</a>
 <div class="modulo">
 <h3>Requisição</h3>
   <table cellpadding="0" cellspacing="0" border="0" class="display" id="usuario">

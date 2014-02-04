@@ -1,4 +1,4 @@
-﻿<?php if(!defined('BASEPATH')) exit('Falha no carregamento do BASEPATH!');
+<?php if(!defined('BASEPATH')) exit('Falha no carregamento do BASEPATH!');
 #seguranca_arq();
 ?>
 <!--
@@ -14,14 +14,14 @@
                 
             ?>
 	<p>
-            <strong>Login:</strong> <?= $usu[0]['login'] ?>  
+            <strong>Login:</strong> <?php echo  $usu[0]['login'] ?>  
 	</p>
 	<p>
-            <strong>Nome:</strong>  <?= $usu[0]['nome'] ?> 
+            <strong>Nome:</strong>  <?php echo  $usu[0]['nome'] ?> 
 	</p>
         
 	<p>
-            <strong>Setor:</strong> <?= $usu[0]['setor'] ?>
+            <strong>Setor:</strong> <?php echo  $usu[0]['setor'] ?>
 	</p>
 </div>
 		
@@ -31,7 +31,7 @@
 
 <div class="modulo">
 	<h3>Alterar meus dados</h3>
-        <form id="" action="<?=BARRA.url_base?>/login/alterarlogin" method="post">
+        <form id="" action="<?php echo BARRA.url_base?>/login/alterarlogin" method="post">
 		<p>
 			<strong>Login</strong><br />
                         <input type="text" name="newlogin" value="" required="required" />
@@ -51,7 +51,7 @@
 
 <div class="modulo">
 	<h3>Alterar minha senha</h3>	
-        <form id="alterarSenha" action="<?=BARRA.url_base?>/login/alterarsenha" method="post">
+        <form id="alterarSenha" action="<?php echo BARRA.url_base?>/login/alterarsenha" method="post">
 		<p>
 			<strong>Senha atual</strong><br />
                         <input type="password" name="senhaAt" required="required" />

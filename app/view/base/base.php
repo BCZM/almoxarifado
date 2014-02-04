@@ -46,7 +46,7 @@
 		<div id="header">
 			<div id="logo">
 				<a href="http://www.bczm.ufrn.br" target="blank">
-                                  <img src="<?=BARRA.url_base.BARRA.BASEIMAGES ?>logo-sisbi.png" alt="Logomarca do SISBI" />
+                                  <img src="<?php echo BARRA.url_base.BARRA.BASEIMAGES ?>logo-sisbi.png" alt="Logomarca do SISBI" />
                                 </a>
 				<div class="unidade">Biblioteca Central Zila Mamede</div>
 				<div id="almoxerife">
@@ -101,7 +101,7 @@
 			<p>Desenvolvido pela <a href="mailto:sst@bczm.ufrn.br" target="blank">Sessão de Suporte Técnico</a></p>
 		</div>
 	</div>
-        <div id="top"><img src="<?=BARRA.url_base.BARRA.BASEIMAGES ?>subir.png" alt="Subir ao topo da página"  title="Ir ao topo"/></div>
+    <div id="top"><img src="<?php echo BARRA.url_base.BARRA.BASEIMAGES ?>subir.png" alt="Subir ao topo da página"  title="Ir ao topo"/></div>
 
         <!-- Máscara para cobrir a tela -->
         <div id="mask"></div>

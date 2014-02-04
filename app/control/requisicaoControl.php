@@ -11,52 +11,38 @@
  * @author italo
  */
 
-require_once(BASEMODEL.'conexaoBD.php');
-require_once(BASEMODELDAO.'requisicaoDAO.php');
-require_once(BASEMODELDAO.'requisicao_has_materialDAO.php');
-require_once(BASEMODELCLASS.'usuarioClass.php');
-
 
 //session_start();
 
-class requisicao {
+class requisicao extends controller {
     //put your code here
-    public function cadastrar(){
-      
-       if(isset($_SESSION['session']['acoes']['nomeR'])&&
-         isset($_SESSION['session']['acoes']['grupoR'])&&
-         isset($_SESSION['session']['acoes']['qntR'])){
-           
-         $nome    =  $_SESSION['session']['acoes']['nomeR'];
-         $grupo   =  $_SESSION['session']['acoes']['grupoR'];
-         $qnt     =  $_SESSION['session']['acoes']['qntR'];
-         $usu = new usuarioClass();
-         $usu = unserialize($_SESSION['session']['usuario']);
-         //print_r($nome);
-        
+    public function adicionarmaterial($id){
+       
+       if(isset($id[0]['valor']) && isset($id[1]['valor'])){
+           //$array = array($id[0]['valor'],$id[1]['valor']);
+           $flag = FALSE;
+           foreach ($_SESSION['cadReq'] as $ls){
+               if($ls[0]==$id[0]['valor']){
+                  $flag=TRUE;
+                  break;
+               }
+           }
+           if(!$flag){
+                $_SESSION['cadReq'][]=  array($id[0]['valor'],$id[1]['valor']) ; 
+           }
+          
+          
+       } 
+    redirecionar('menu/material');        
+    }
     
-         
-         
-         $requis = new requisicaoDAO();
+    public function removermaterial($id){
+       $pos = array_search($id[0]['valor'], $_SESSION['cadReq'] );
+       
+        unset($_SESSION['cadReq'][$pos]);
+        sort($_SESSION['cadReq']);
         
-         
-         
-         $requiClass = new requisicaoClass();
-         $requiClass->setMomento(date("d/m/y H:i"));
-         $requiClass->setUsuario_idusuario($usu->getIdusuario());
-         $requiClass->setStatus_idstatus(4);//Aguardando Atendimento
-         
-         
-         $requicao_has_material = new requisicao_has_materialClass();
-         $requicao_has_material->setQtdrequisitada($qnt);
-         
-         
-         
-         print_r($requiClass);
-         //print_r($usu);
-
-        //$requis->incluir($dados);
-        }
+     redirecionar('menu/material');        
     }
 }
 

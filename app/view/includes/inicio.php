@@ -4,7 +4,7 @@
 <!--
 	Início de conteúdo
 -->
-<form class="login" action='<?=BARRA.url_base?>/login/validar' method="post">
+<form class="login" action='<?php echo BARRA.url_base?>/login/validar' method="post">
 	<label for="username">Usuário</label>
 	<input type="text" id="username" name="login">
 	<br>

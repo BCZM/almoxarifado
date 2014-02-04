@@ -21,12 +21,12 @@
 			<strong>Dados do setor</strong><br />
 		</p>
 <p>
-    <strong>Nome atual:</strong><?=  utf8_encode($setor[0]['nome']) ?>
+    <strong>Nome atual:</strong><?php echo   utf8_encode($setor[0]['nome']) ?>
 </p>
 <p>
-    <strong>Código atual:</strong><?=$setor[0]['codigo'] ?>
+    <strong>Código atual:</strong><?php echo $setor[0]['codigo'] ?>
 </p>
-<form method="POST" action="<?=BARRA.url_base?>/setor/alterarnomesetor/codigo/<?=$setor[0]['codigo']?>">
+<form method="POST" action="<?php echo BARRA.url_base?>/setor/alterarnomesetor/codigo/<?php echo $setor[0]['codigo']?>">
     <p> 
         <strong>Novo nome:</strong><br>
         <input type="text" name="newname" required="required">
@@ -35,7 +35,7 @@
         <input type="submit" onclick="return confirm('Deseja realmente alterar o nome do setor?');" name="alterarN" value="Alterar nome">
     </p>
 </form>
-<form method="POST" action="<?=BARRA.url_base?>/setor/alterarcodigosetor/codigo/<?=$setor[0]['codigo']?>">
+<form method="POST" action="<?php echo BARRA.url_base?>/setor/alterarcodigosetor/codigo/<?php echo $setor[0]['codigo']?>">
     <p>
         <strong>Novo código:</strong><br>
         <input type="text" name="newcodigo" required="required">

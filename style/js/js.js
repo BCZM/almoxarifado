@@ -39,8 +39,13 @@ $(function(){
                         
                 })
     ;
+        Table = $('#material').dataTable(  {
+                        "sScrollY": 200,
+                        "sScrollX": "100%",
+                        "sScrollXInner": "100%"
+                        
+                });
    
-  
         
   /* Add a select menu for each TH element in the table footer */
     /*$("tfoot th").each( function ( i ) {
@@ -61,12 +66,14 @@ $(function(){
         });*/
 
        $('.add').click( function () {
-               /*Obtém a posição da célula clicada */
-        var aPos = oTable.fnGetPosition(this);
-
+        
+        /*Obtém a posição da célula clicada */
+        var aPos = Table.fnGetPosition(this);
+     
        /*Obtém o array com os dados da linha clicada*/
-        var aData = oTable.fnGetData(aPos[0]);
+        var aData = Table.fnGetData(aPos[0]);
        
+
        adicionar(aData[0],aData[2],$('.material'));
 
        });
@@ -75,9 +82,11 @@ $(function(){
        var i = 0;
        
        /*Script para adicionar e remover campo*/
-       
+       function teste(){
+           alert('oH chegou');
+       }
         function adicionar(nome,grupo,div){
-            //alert(nome);
+            alert('codigo:'+nome+'\n detalhe:'+grupo);
           var flag = false;   
              //arr[i] = [nome,grupo];
              
@@ -92,7 +101,15 @@ $(function(){
              
              if(!flag){
                 
-             
+             if(i==0){
+                 $('<tr>'
+			+'<th>Código</th>'
+			+'<th>Categoria</th>'
+			+'<th>Quantidade</th>' 
+                   +'</tr>'    
+                   
+                   ).appendTo(div);
+             }
                 $('<tr>'
                    +'<td><input name="nome[]" type="text" value="'+ nome  +'" readonly="readonly" style=" width: 162px; height: 35px;" /></td>'
                    +'<td><input name="grupo[]" type="text" value="'+ grupo  +'" readonly="readonly" style=" width: 162px; height: 35px;" /></td>'
@@ -100,6 +117,7 @@ $(function(){
                    +'<td><a href="#" id="'+i+'" class="remove">Remove</a></td>'
                    +'</tr>')
                    .appendTo(div);
+               
                  arr[i] = [nome,grupo];
                  i++;
                 }  
@@ -110,8 +128,8 @@ $(function(){
                             var id =  $(this).attr('id');
                                delete arr[id][0];
                                delete arr[id][1];
- 
-               });
+                              i--;
+             });
 
         
 });  

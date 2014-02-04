@@ -1,4 +1,4 @@
-﻿<?php if(!defined('BASEPATH')) exit('Falha no carregamento do BASEPATH!');
+<?php if(!defined('BASEPATH')) exit('Falha no carregamento do BASEPATH!');
    
     foreach ($val as $array) {
            foreach ($array as $key => $value) {
@@ -52,13 +52,13 @@
 <?php
     if($cadastrar):
 ?>
-    <a href="#dialog" name="modal" ><img src="<?=BARRA.url_base.BARRA.BASEIMAGES?>plus.png" />Adicionar novo</a>
+    <a href="#dialog" name="modal" ><img src="<?php echo BARRA.url_base.BARRA.BASEIMAGES?>plus.png" />Adicionar novo</a>
 
 <div id="dialog" class="window" >
     
     <a href="#" class="close">Fechar [X]</a>
     <div class="content_dialog">
-            <form  action="<?=BARRA.url_base?>/setor/cadastrarmaterial" method="post">
+            <form  action="<?php echo BARRA.url_base?>/setor/cadastrarmaterial" method="post">
                 <div class="pos_center">
                     <p>
                             <strong>Grupo:</strong><br />
@@ -92,19 +92,19 @@
 <?php
     if($cadrequisicao):
 ?>
-    <a href="#" id="opcoes"  ><img src="<?=BARRA.url_base.BARRA.BASEIMAGES?>plus.png" />Realizar requisição</a>
+    <a href="#" id="opcoes"  ><img src="<?php echo BARRA.url_base.BARRA.BASEIMAGES?>plus.png" />Realizar requisição</a>
 
 <?php
     endif;
 ?>
 	<h3>Listar Material</h3>
-        <table cellpadding="0" cellspacing="0" border="0" class="display" id="material" name="datatable">
+        <table cellpadding="0" cellspacing="0" border="0" class="display" id="material" name="">
 	<thead>
 		<tr>
 			<th>Código</th>
 			<th>Detalhes</th>
                         <th>Categoria</th>
-                        <?=
+                        <?php echo 
                             
                                  $th_inicio   
                                 .$editar_txt
@@ -113,6 +113,7 @@
                                 .$th_fim
                             
                          ?>
+                        <th></th>
 		</tr>
 	</thead>
         <tbody>
@@ -123,7 +124,8 @@
         foreach ($material as $ls){
             $deletar_material = ($deletar) ? "<a href='".BARRA.url_base."/setor/deletarmaterial/codigo/{$ls['idmaterial']}' onclick=\"return confirm('Deseja realmente excluir o setor ".utf8_encode($ls['nome'])."?');\"  title='Excluir' ><img alt='excluir' src='".BARRA.url_base.BARRA.BASEIMAGES."excluir.png' /></a>":''; 
             $editar_material  = ($editar)  ? "<a href='".BARRA.url_base."/menu/editarmaterial/id/{$ls['idmaterial']}' onclick=\"return confirm('Deseja realmente editar o setor ".utf8_encode($ls['nome'])."?');\" title='Editar' ><img alt='editar' src='".BARRA.url_base.BARRA.BASEIMAGES."editar.png' /></a>":'';                     
-           
+            $linkAdd  = ($cadrequisicao)  ? "<td class='' ><a href='".BARRA.url_base."/requisicao/adicionarmaterial/id/{$ls['idmaterial']}/cat/{$ls['categoria_codigo']}'  title='adicionar' ><img alt='add' src='".BARRA.url_base.BARRA.BASEIMAGES."plus.png' /></a></td>":'';                     
+            
             //altera a cor da linha identificando que o produto está em falta ou proximo
                   #$sitmaterial = ($ls->getQuantidadeatual() > 0 )? "class='gradeA'" : "class='gradeX'";
                   echo 
@@ -135,6 +137,7 @@
                       .$editar_material
                       .$deletar_material
                       .$td_fim
+                      .$linkAdd     
                       ."</tr>"
                               
                  ;
@@ -150,7 +153,7 @@
 <div class="modulo">
     <div id="" class="opcoes" >
     
-            <form  action="<?=BARRA.url_base?>/setor/cadastrarmaterial" method="post">
+            <form  action="<?php echo BARRA.url_base?>/requisicao/cadastrarrequisicao" method="post">
                     <p>
                             <strong>Grupo:</strong><br />
                             <select name="material" style="width: 260px;" >
@@ -175,6 +178,42 @@
                     </p>
             </form>
     </div>
+   
+<?php 
+    if(isset($_SESSION['cadReq'])):
+       
+?>    
+    <div class="material">
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Categoria</th>
+                    <th>Quantidade</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+        <?php
+        $requisicao = $_SESSION['cadReq'];
+        
+            foreach ($requisicao as $ls){
+                echo "<tr>"
+                     . "<td>{$ls[0]}</td>"
+                     . "<td>{$ls[1]}</td>"
+                     . "<td><input type='number' name='quantidade' value='1' /></td>"  
+                     . "<td><a href='".BARRA.url_base."/requisicao/removermaterial/id/{$ls[0]}'>remover</a></td>"                      
+                     . "</tr>";
+            }
+           
+        ?>
+            </tbody>
+        </table>  
+    </div>
+    
+<?php
+    endif;
+?>
 </div>
 <?php
     endif;
