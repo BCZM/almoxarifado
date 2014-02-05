@@ -52,22 +52,18 @@ class material extends controller {
       redirecionar('menu/material');  
     }
 
-    public function deletarmaterial(){
-        
+    public function editarmaterial(){
+         if(isset($_GET['codigoMaterial']) && $_GET['codigoMaterial']!=NULL){
+            $ret = crud::consultar(array('*'), 'material',"idmaterial={$_GET['codigoMaterial']}");
+            
+            if(!empty($ret)){
+               $_SESSION['editar'] = $ret; 
+            }
+            else 
+               $_SESSION['msg'] = 'Falha: O código não encontrado!';
+
+        }
+      redirecionar('menu/material');  
     }
-   
-    public function alterarnome(){
-      
-    }
-    
-    public function alterarquantidade(){
-       
-    }
-    public function alterardetalhes(){
-      
-    }
-    public function alterargrupo(){
-    }   
-      
 }
 

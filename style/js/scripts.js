@@ -53,7 +53,7 @@ $('#opcoes').click(function (){
 });
 //FIM
 
-$("input[class=editar]").attr('disabled',true);
+$(".editar").attr('disabled',true);
 
 
 }); 
@@ -63,6 +63,8 @@ function exibir(obj){
     if(obj.checked){
         //alert('checado!');
         $("input[name="+obj.id+"]").removeAttr('disabled');
+        $("select[name="+obj.id+"]").removeAttr('disabled');
+
     }
     else{
         //alert('nao checado');
