@@ -151,7 +151,7 @@ class menu extends controller {
         $this->atr_page['control'] = 'menu/';
         //carrega usuarios
         $this->atr_page['usuarios'] = crud::consultar(array('login','nome',
-            'setor_codigo as setor','idusuario'),'usuario'); 
+            '(SELECT codigo FROM setor WHERE idsetor=setor_idsetor) as setor','idusuario'),'usuario'); 
         //carrega setores
         $this->atr_page['setores'] =  crud::consultar(array('*'), 'setor');
         //carrega menus e actions
@@ -172,7 +172,7 @@ class menu extends controller {
         $this->atr_page['usuario'] =  crud::consultar(array(
             'login',
             'nome',
-            'setor_codigo as setor',
+            '(SELECT codigo FROM setor WHERE idsetor=setor_idsetor) as setor',
             'tipousuario_idtipousuario as tipo',
             'idusuario'), 
                 'usuario',
@@ -225,7 +225,7 @@ class menu extends controller {
         //classe do controle 
         $this->atr_page['control'] =  'menu/';
         
-        $this->atr_page['setor'] =  crud::consultar(array('*'), 'setor',"codigo='{$id[0]['valor']}'");
+        $this->atr_page['setor'] =  crud::consultar(array('*'), 'setor',"idsetor='{$id[0]['valor']}'");
         
         $this->res[] = $this->atr_page;
         $this->view('alterarsetor',  $this->res);

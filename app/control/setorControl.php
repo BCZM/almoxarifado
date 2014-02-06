@@ -24,7 +24,7 @@ class setor extends controller{
             $codigo = addslashes($_POST['newname']);
             $ret = crud::consultar(array('nome'),'setor', "nome='{$codigo}'" );
             if(empty($ret))
-            $this->editar(array('nome'=>$_POST['newname']), "{$setor[0]['parametro']}='{$setor[0]['valor']}'");
+            $this->editar(array('nome'=>$_POST['newname']), "idsetor='{$setor[0]['valor']}'");
             else 
                $_SESSION['msg'] = 'Falha: O nome informado já foi cadastrado!';
 
@@ -40,14 +40,14 @@ class setor extends controller{
              $codigo = addslashes($_POST['newcodigo']);
             $ret = crud::consultar(array('codigo'),'setor', "codigo='{$codigo}'" );
             if(empty($ret))
-                $this->editar(array('codigo'=>$_POST['newcodigo']), $setor[0]['parametro'].'='.$setor[0]['valor']);
+                $this->editar(array('codigo'=>$_POST['newcodigo']), 'idsetor='.$setor[0]['valor']);
             else
                 $_SESSION['msg'] = 'Falha: O código informado já foi cadastrado!';
         }
         else {
             $_SESSION['msg'] = "Novo código não foi informado!";   
         }
-     redirecionar('menu/editarsetor/'.$setor[0]['parametro'].'/'.$setor[0]['valor']);
+     redirecionar('menu/editarsetor/codigo/'.$setor[0]['valor']);
    }
 
     private function editar(array $array,$where){

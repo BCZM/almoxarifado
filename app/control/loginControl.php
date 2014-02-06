@@ -20,7 +20,7 @@ class login extends controller {
         $ret = crud::consultar(array(
             'login',
             'nome',
-            'setor_codigo as setor',
+            '(SELECT codigo FROM setor WHERE idsetor=setor_idsetor) as setor',
             'tipousuario_idtipousuario',
             'idusuario'
             ),
