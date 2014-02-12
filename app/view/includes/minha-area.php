@@ -31,7 +31,7 @@
 
 <div class="modulo">
 	<h3>Alterar meus dados</h3>
-        <form id="" action="<?php echo BARRA.url_base?>/login/alterarlogin" method="post">
+        <form id="" action="<?php echo BARRA.url_base?>/login/minhaarea/?acao=alterarlogin" method="post">
 		<p>
 			<strong>Login</strong><br />
                         <input type="text" name="newlogin" value="" required="required" />
@@ -51,7 +51,7 @@
 
 <div class="modulo">
 	<h3>Alterar minha senha</h3>	
-        <form id="alterarSenha" action="<?php echo BARRA.url_base?>/login/alterarsenha" method="post">
+        <form id="alterarSenha" action="<?php echo BARRA.url_base?>/login/minhaarea/?acao=alterarsenha" method="post">
 		<p>
 			<strong>Senha atual</strong><br />
                         <input type="password" name="senhaAt" required="required" />

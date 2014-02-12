@@ -18,7 +18,7 @@ class setor extends controller{
         parent::__construct();
     }
 
-   public function alterarnomesetor($setor){
+    private function alterarnomesetor($setor){
         if(isset($_POST['newname']) && $_POST['newname'] != NULL){
             
             $codigo = addslashes($_POST['newname']);
@@ -35,7 +35,7 @@ class setor extends controller{
      redirecionar('menu/editarsetor/'.$setor[0]['parametro'].'/'.$setor[0]['valor']);
    }
     
-    public function alterarcodigosetor($setor){
+   private function alterarcodigosetor($setor){
          if(isset($_POST['newcodigo']) && $_POST['newcodigo'] != NULL){
              $codigo = addslashes($_POST['newcodigo']);
             $ret = crud::consultar(array('codigo'),'setor', "codigo='{$codigo}'" );
@@ -98,7 +98,16 @@ class setor extends controller{
        }
      redirecionar("menu/setor");
    } 
-    
+   public function editarsetor($acao){
+       switch ($_GET['acao']){
+           case 'alterarnome':
+               $this->alterarnomesetor($acao);
+               break;
+           case 'alterarcodigo':
+               $this->alterarcodigosetor($acao);
+               break;
+       }
+   }
 ###==============TESTES===============###
         public function teste(){
           $arr  = array(

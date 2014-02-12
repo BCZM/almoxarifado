@@ -5,13 +5,14 @@
                    if( $key == 'materiais'   ){   $material = ($value);}
                    if( $key == 'grupos'      ){   $grupo = ($value);}
                    if( $key == 'detalheMaterial'   ){   $detalhe = ($value);}
-                   
+                   if( $key == 'situacao'   ){   $situacao = ($value);}                  
                                      
            }         
          } 
          
         $usuario = $_SESSION['session']['logado']['permissao']['action'];  
-   $usuario_info = $_SESSION['session']['logado']['usuario'][0]['tipousuario_idtipousuario']==1 ? TRUE:FALSE;          
+    $detalheMat  = FALSE;    
+     $usuario_on = $_SESSION['session']['logado']['usuario'][0];  
       $cadastrar = FALSE;
   $cadrequisicao = FALSE;
           $addOn = isset($_SESSION['addOn']) ? TRUE : FALSE;
@@ -30,16 +31,19 @@
             }
             if($ls['link']=='cadastrarrequisicao'){
                 $cadrequisicao = TRUE;
-            }            
+            }
+            if($ls['link']=='detalhematerial'){
+                $detalheMat = TRUE;
+            }
         } 
            
-         if($editar || $deletar){
+         if(($editar || $deletar) && !($addOn) ){
                   $th_inicio = "<th>";
                   $th_fim    = "</th>";  
                   $td_inicio = "<td class='center'>";
                   $td_fim    = "</td>";
-                  $editar_txt    = $editar ? 'Editar' : ''; 
-                  $barra_txt     = ($editar && $deletar) ? '/' : ''; 
+                  $editar_txt    = $editar  ? 'Editar' : ''; 
+                  $barra_txt     = ($editar && $deletar)  ? '/' : ''; 
                   $deletar_txt   = $deletar ? 'Excluir' : ''; 
                 }
               else{
@@ -70,7 +74,7 @@
 				<option value="-1" selected>Selecione o material</option>
                             <?php
                             foreach ($grupo as $ls){
-                                    echo "<option value='{$ls['codigo']}'>".utf8_encode($ls['nome'])."</option>";                                
+                                    echo "<option value='{$ls['idcategoria']}'>".utf8_encode($ls['nome'])."</option>";                                
                             }
                             ?>
                              </select>
@@ -96,20 +100,25 @@
 <?php
     if($cadrequisicao):
 ?>
-    <a href='<?php echo BARRA.url_base.BARRA ?>requisicao/ativarreq' id="opcoes"  ><img src="<?php echo BARRA.url_base.BARRA.BASEIMAGES?>plus.png" />Realizar requisição</a>
+    <a href='<?php echo BARRA.url_base.BARRA ?>requisicao/cadastrarrequisicao/?ativarReq=on' id="opcoes"  ><img src="<?php echo BARRA.url_base.BARRA.BASEIMAGES?>plus.png" />Realizar requisição</a>
 
 <?php
     endif;
 ?>
+    
+    <br>
+    <strong>*Obs.: Nem todos os produtos listados abaixo estão disponíveis.<br> clique em "Realizar requisição" para apresentar apenas os disponíveis!  </strong>
+    
+    
 	<h3>Listar Material</h3>
         <table cellpadding="0" cellspacing="0" border="0" class="display" id="material" name="">
 	<thead>
 		<tr>
 			<th>Código</th>
-			<th>Detalhe</th>
+			<th>Descrição</th>
                         <th>Categoria</th>
                         <?php 
-                        if($usuario_info)  echo '<th>Detalhes</th>';
+                        if($detalheMat)  echo '<th>Detalhes</th>';
 
                         echo 
                             
@@ -119,10 +128,10 @@
                                 .$deletar_txt
                                 .$th_fim;
                         
-                         if($addOn)  echo '<th></th>';
+                         if($addOn)  echo '<th style="text-align: center;">Adicionar</th>';
                          ?>
                        
-		</tr>
+                </tr>
 	</thead>
         <tbody>
         
@@ -130,17 +139,17 @@
         //var_dump($material);
             
         foreach ($material as $ls){
-            $deletar_material = ($deletar) ? "<a href='".BARRA.url_base."/setor/deletarmaterial/codigo/{$ls['idmaterial']}' onclick=\"return confirm('Deseja realmente excluir o setor ".utf8_encode($ls['nome'])."?');\"  title='Excluir' ><img alt='excluir' src='".BARRA.url_base.BARRA.BASEIMAGES."excluir.png' /></a>":''; 
-            $editar_material  = ($editar)  ? "<a href='".BARRA.url_base."/material/editarmaterial/?codigoMaterial={$ls['idmaterial']}' onclick=\"return confirm('Deseja realmente editar o setor ".utf8_encode($ls['nome'])."?');\" title='Editar' ><img alt='editar' src='".BARRA.url_base.BARRA.BASEIMAGES."editar.png' /></a>":'';                     
-            $linkAdd  = ($addOn)  ? "<td class='' ><a href='".BARRA.url_base."/requisicao/adicionarmaterial/id/{$ls['idmaterial']}/cat/{$ls['categoria_codigo']}'  title='adicionar' ><img alt='add' src='".BARRA.url_base.BARRA.BASEIMAGES."plus.png' /></a></td>":'';                     
-            $quantidadeOn = ($usuario_info)? "<td><a href='".BARRA.url_base."/material/detalhematerial/?codigoMaterial={$ls['idmaterial']}' ><img src='".BARRA.url_base.BARRA.BASEIMAGES."detalhe.png' alt='detalhes' title='detalhes' /></a></td>":'';
+            $deletar_material = ($deletar) && !($addOn) ? "<a href='".BARRA.url_base."/setor/deletarmaterial/codigo/{$ls['idmaterial']}' onclick=\"return confirm('Deseja realmente excluir o setor ".utf8_encode($ls['nome'])."?');\"  title='Excluir' ><img alt='excluir' src='".BARRA.url_base.BARRA.BASEIMAGES."excluir.png' /></a>":''; 
+            $editar_material  = ($editar) && !($addOn) ? "<a href='".BARRA.url_base."/material/editarmaterial/?codigoMaterial={$ls['idmaterial']}' onclick=\"return confirm('Deseja realmente editar o setor ".utf8_encode($ls['nome'])."?');\" title='Editar' ><img alt='editar' src='".BARRA.url_base.BARRA.BASEIMAGES."editar.png' /></a>":'';                     
+            $linkAdd  = ($addOn)  ? "<td class='' style=\"text-align: center;\" ><a href='".BARRA.url_base."/requisicao/cadastrarrequisicao/?adicionar=on&&codigo={$ls['codigo']}&&categoria={$ls['categoria']}&&descricao=".utf8_encode($ls['nome'])."&&id={$ls['idmaterial']}'  title='adicionar' ><img alt='add' src='".BARRA.url_base.BARRA.BASEIMAGES."plus.png' /></a></td>":'';                     
+            $quantidadeOn = ($detalheMat) ? "<td><a href='".BARRA.url_base."/material/detalhematerial/?codigoMaterial={$ls['idmaterial']}' ><img src='".BARRA.url_base.BARRA.BASEIMAGES."detalhe.png' alt='detalhes' title='detalhes' /></a></td>":'';
             //altera a cor da linha identificando que o produto está em falta ou proximo
                   #$sitmaterial = ($ls->getQuantidadeatual() > 0 )? "class='gradeA'" : "class='gradeX'";
                   echo 
                       "<tr>"
-                      ."<td>{$ls['idmaterial']}</td>"
+                      ."<td>{$ls['codigo']}</td>"
                       ."<td>".utf8_encode($ls['nome'])."</td>"
-                      ."<td>{$ls['categoria_codigo']}</td>"
+                      ."<td>{$ls['categoria']}</td>"
                       .$quantidadeOn   
                       .$td_inicio
                       .$editar_material
@@ -169,7 +178,7 @@
 				<option value="-1" selected>Selecione o material</option>
                             <?php
                             foreach ($grupo as $ls){
-                                    echo "<option value='{$ls['codigo']}'>".utf8_encode($ls['nome'])."</option>";                                
+                                    echo "<option value='{$ls['idcategoria']}'>".utf8_encode($ls['nome'])."</option>";                                
                             }
                             ?>
                              </select>
@@ -193,31 +202,45 @@
        
 ?>    
     <div class="material">
-        <table>
+        <form action="<?php echo BARRA.url_base?>/requisicao/cadastrarrequisicao" method="POST">
+            <h1>Requisição Almoxarifado</h1>    
+            <strong>Código requisição:</strong><?php echo "<input type='text' style='display:none;' name='codigoreq' value='{$_SESSION['addOn']}' />{$_SESSION['addOn']}" ?><br>  
+            <strong>Usuário requisitante:</strong><?php echo "<input type='text' style='display:none;' name='usuarioreq' value='{$usuario_on['idusuario']}' />{$usuario_on['nome']}" ?><br>
+            <strong>Data da requisição:</strong><?php echo date('d/m/y') ?>
+          <table>
             <thead>
                 <tr>
                     <th>Código</th>
                     <th>Categoria</th>
-                    <th>Detalhe</th>
-                    <th></th>
+                    <td>Descrição</td>
+                    <th>Quantidade</th>
+                    <th>Ação</th>
                 </tr>
             </thead>
-            <tbody>
+            
+            <tbody> 
+            
         <?php
         $requisicao = $_SESSION['cadReq'];
         
             foreach ($requisicao as $ls){
                 echo "<tr>"
-                     . "<td>{$ls[0]}</td>"
+                     . "<td><input type='text' style='display:none;' name='idmaterial[]' value='{$ls[3]}' />{$ls[0]}</td>"
                      . "<td>{$ls[1]}</td>"
-                     . "<td><input type='number' name='quantidade' value='1' /></td>"  
-                     . "<td><a href='".BARRA.url_base."/requisicao/removermaterial/id/{$ls[0]}'>remover</a></td>"                      
+                     . "<td>{$ls[2]}</td>"
+                     . "<td><input type='number' name='quantidade[]' value='1' /></td>"  
+                     . "<td><a href='".BARRA.url_base."/requisicao/cadastrarrequisicao/?remover={$ls[0]}'>remover</a></td>"                      
                      . "</tr>";
             }
            
         ?>
             </tbody>
-        </table>  
+            
+            
+           </table>
+           <input type="submit" name="cancelar" value="Cancelar requisição">
+           <input type="submit" name="finalizar" value="Finalizar requisição"><br>&nbsp;
+       </form> 
     </div>
     
 <?php
@@ -249,16 +272,44 @@
     <div class="content_dialog">
      <div class="pos_center">  
          <p>
-         <label><b>Código:</b></label><?php echo $material_detalhe['idmaterial']?><br>
-         <label><b>Detalhe:</b></label><?php echo utf8_encode($material_detalhe['nome'])?><br>
-         <label><b>Data da última entrada:</b></label><?php echo $material_detalhe['data_ultima_entrada']?><br>
-         <label><b>Quantidade da última entrada:</b></b></label><?php echo $material_detalhe['qtd_ultima_entrada']?><br>
-         <label><b>Data da última saída:</b></label><?php echo $material_detalhe['data_ultima_saida']?><br>
-        <label><b>Quantidade da última saída:</b></label><?php echo $material_detalhe['qtd_ultima_saida']?><br>
-        <label><b>Quantidade atual:</b></label><?php echo $material_detalhe['qtd_atual']?><br>
-        <label><b>Categoria:</b></label><?php echo $material_detalhe['categoria_codigo']?><br>
-        <label><b>Situação:</b></label><?php echo $material_detalhe['situacao_codigo']?>
-
+         <table> 
+          <tr>  
+              <td> <label><b>Código:</b></label></td>
+              <td><?php echo $material_detalhe['codigo']?></td>
+         </tr>  
+         <tr>
+             <td><label><b>Detalhe:</b></label></td>
+             <td><?php echo utf8_encode($material_detalhe['nome'])?></td>
+         </tr>
+         <tr>
+             <td><label><b>Data da última entrada:</b></label></td>
+             <td><?php echo $material_detalhe['data_ultima_entrada']?></td>
+         </tr>
+         <tr>
+             <td><label><b>Quantidade da última entrada:</b></b></label></td>
+             <td><?php echo $material_detalhe['qtd_ultima_entrada']?></td>
+         </tr>
+         <tr>
+             <td><label><b>Data da última saída:</b></label></td>
+             <td><?php echo $material_detalhe['data_ultima_saida']?></td>
+         </tr>
+         <tr>
+             <td><label><b>Quantidade da última saída:</b></label></td>
+             <td><?php echo $material_detalhe['qtd_ultima_saida']?></td>
+        </tr>
+        <tr>
+            <td><label><b>Quantidade atual:</b></label></td>
+            <td><?php echo $material_detalhe['qtd_atual']?></td>
+        </tr>
+        <tr>
+            <td><label><b>Categoria:</b></label></td>
+            <td><?php echo $material_detalhe['categoria']?></td>
+        </tr>
+        <tr>
+            <td><label><b>Situação:</b></label></td>
+            <td><?php echo $material_detalhe['situacao']?></td>
+         </tr> 
+         </table>
          </p>
      </div> 
 
@@ -283,55 +334,59 @@
 <a href="#editarMaterial" name="modal" ></a>    
 <div id="editarMaterial" class="window" >
     
-    <a href="#" class="close">Fechar [X]</a>
+    <a href="#" class="close">Fechar [X]</a><br>
     <div class="content_dialog">
-            <form  action="<?php echo BARRA.url_base?>/material/editarrmaterial" method="post">
+            <form  action="<?php echo BARRA.url_base?>/material/editarrmaterial/id/<?php echo $material_edicao['idmaterial'] ?>" method="post">
                 <div class="pos_center">
-                <table cellpadding="0" cellspacing="0" border="0" >
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>  
+                    <table cellpadding="0" cellspacing="0" border="0" >
+               
                   <tbody>   
                     <tr>
-                        <td><input type="checkbox" id="grupoMaterial" name="verifica" onclick="exibir(this)"></td>
+                        <td><input type="checkbox" id="grupoMaterial" title="editar" name="verifica" onclick="exibir(this)"></td>
                         <td><strong>Grupo:</strong></td>
                         <td >     
                             <select name="grupoMaterial" class="editar"  style="width: 260px;" >
 				
                             <?php
                             foreach ($grupo as $ls){
-                                    echo "\n[codigo={$ls['codigo']},categoria_codigo={$material_edicao['categoria_codigo']}]]\n";
-                                    $checked = ($ls['codigo']==$material_edicao['categoria_codigo']) ? 'checked': '';
-                                    echo "<option $checked value='{$ls['codigo']}'>".utf8_encode($ls['nome'])."</option>";                                
+                                
+                                    $checked = ($ls['codigo']==$material_edicao['categoria']) ? 'checked': '';
+                                    echo "<option $checked value='{$ls['idcategoria']}'>".utf8_encode($ls['nome'])."</option>";                                
                             }
                             ?>
                              </select>
                         </td>
                    </tr>
                    <tr>
-                       <td><input type="checkbox" id="codigoMaterial" name="verifica" onclick="exibir(this)"></td>
+                       <td>&nbsp;</td>
                        <td><strong>Código do material:</strong> </td>
-                       <td><input type="number" name="codigoMaterial"  class="editar" style="width: 260px;" value="<?php echo $material_edicao['idmaterial'] ?>" required="required" /></td>
+                       <td><input type="number" name="codigoMaterial"  class="editar" style="width: 260px;" value="<?php echo $material_edicao['codigo'] ?>" required="required" /></td>
                            
                     </tr>
                     <tr>
-                        <td><input type="checkbox" id="detalheMaterial" name="verifica" onclick="exibir(this)"></td>
+                        <td><input type="checkbox" id="detalheMaterial" title="editar" name="verifica" onclick="exibir(this)"></td>
                         <td><strong>Descrição:</strong></td>
-                        <td><input type="text" name="detalheMaterial" class="editar" style="width: 260px;" value="<?php echo $material_edicao['nome'] ?>" required="required" /></td>
+                        <td><input type="text" name="detalheMaterial" class="editar" style="width: 260px;" value="<?php echo utf8_encode($material_edicao['nome']) ?>" required="required" /></td>
                      </tr>
                      <tr>
-                         <td><input type="checkbox" id="situacaoMaterial" name="verifica"  onclick="exibir(this)"></td>
+                         <td><input type="checkbox" id="situacaoMaterial" title="editar" name="verifica"  onclick="exibir(this)"></td>
                          <td><strong>Situação:</strong></td>
-                         <td><input type="text" name="situacaoMaterial"  class="editar" style="width: 260px;" value="<?php echo $material_edicao['situacao_codigo'] ?>" required="required" /></td>
+                                 <td>
+                                     <select name="situacaoMaterial"  class="editar" style="width: 260px;">
+                                         <?php
+                                          foreach ($situacao as $ls){
+                                            $checked = ($ls['idsituacao'] === $material_edicao['situacao']) ? 'checked': '';
+                                            echo "<option $checked value='{$ls['idsituacao']}'>".utf8_encode($ls['codigo'])."</option>";                  
+                                            
+                                          }    
+                                         ?>
+                                     </select>
+                                 </td>
                      </tr>
                      <tr>
-                         <td></td>
-                         <td><input type="submit" name="materialE" value="Editar material" /></td>
-                         <td></td>
+
+                         <td colspan="3" style="text-align: right;"><input type="submit" name="materialE" value="Editar material" /></td>
+                         
                     </tr>
                   </tbody>
                 </table>  
@@ -343,9 +398,6 @@
         stopSession('editar');
     endif;
 ?>
-
-<input type="checkbox" id="teste" name="verifica" onclick="exibir(this)">
-<input type="text" name="teste"  class="editar" value="test">
     
     
 <!--

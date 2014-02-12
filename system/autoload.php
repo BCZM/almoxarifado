@@ -16,8 +16,8 @@ class autoload{
           #var_dump($this->params);
               
           //Garante se o usuário tem permissão para a requisição solicitada    
-          #if($this->array_url[3]!='index')    
-          #seguranca_arq();
+          if($this->array_url[3]!='index')    
+          seguranca_arq();
           #sleep(1);
      
         $this->load($this->array_url[2], $this->array_url[3], $this->params);

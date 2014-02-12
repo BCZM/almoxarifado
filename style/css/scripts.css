@@ -42,9 +42,9 @@
      margin-bottom: 20px;
 
 }
-#dialog, #detalhe {
-  width:300px; 
-  height:300px; 
+#dialog, #detalhe, #editarMaterial {
+  width:auto; 
+  height:auto; 
   background-color:#ffffff;
  
   /*
@@ -58,7 +58,7 @@
      margin-bottom: 20px;
 
 }
-#editarMaterial {
+#editarMaterial-Desativo {
   width:450px; 
   height:400px; 
   background-color:#ffffff;

@@ -49,7 +49,7 @@ class usuario extends controller {
     
      redirecionar('menu/usuario');
     }
-  public function deletarusuario($usuario){
+    public function deletarusuario($usuario){
       //exclui primeiro as permissões 
      $return =  crud::deletar('permissao',"usuario_idusuario={$usuario[0]['valor']}" );
        if($return > 0){ 
@@ -67,14 +67,14 @@ class usuario extends controller {
        }
        redirecionar('menu/usuario');
  }
- public function alterarnomeusuario($id){
+ private function alterarnomeusuario($id){
      if(isset($_POST['newnome']) && $_POST['newnome'] != NULL ){
          $this->editar(array('nome'=>$_POST['newnome']), "idusuario={$id[0]['valor']}");
      }
      else $_SESSION['msg'] = 'O novo nome precisa ser informado!';
    redirecionar("menu/editarusuario/id/{$id[0]['valor']}");   
  }
- public function alterarloginusuario($id){
+ private function alterarloginusuario($id){
      if(isset($_POST['newlogin']) && $_POST['newlogin'] != NULL ){
          $ret = crud::consultar(array('login'), 'usuario', "login='{$_POST['newlogin']}'");
          if(empty($ret)){
@@ -86,18 +86,23 @@ class usuario extends controller {
      else $_SESSION['msg'] = 'O novo login precisa ser informado!';
    redirecionar("menu/editarusuario/id/{$id[0]['valor']}");       
  }
- public function alterarsenhausuario($id){
+ private function alterarsenhausuario($id){
      if(isset($_POST['newsenha'])&& $_POST['newsenha'] != NULL){
              $this->editar(array('senha'=>md5($_POST['newsenha'])), "idusuario={$id[0]['valor']}");
      }
      else $_SESSION['msg'] = 'A nova senha precisa ser informada!';
     redirecionar("menu/editarusuario/id/{$id[0]['valor']}");       
  }
- public function alterarpermissaousuario($id){
+ private function alterarpermissaousuario($id){
      if(isset($_POST['permissao']) && $_POST['permissao'] != NULL ){
         $permissao = $_POST['permissao'];
-        $ret = crud::deletar('permissao', "usuario_idusuario={$id[0]['valor']}");
-        if($ret > 0){
+        echo $id[0]['valor'];
+        print_r($permissao);
+        $ret = crud::consultar(array('*'),'permissao', "usuario_idusuario={$id[0]['valor']}");
+        if($ret)
+              $ret = crud::deletar('permissao', "usuario_idusuario={$id[0]['valor']}");
+        
+        if($ret > 0 || empty($ret)){
              foreach ($permissao as $ls){
                        crud::inserir(array('usuario_idusuario'=>$id[0]['valor'],
                                             'menu_idmenu'=>$ls), 'permissao');
@@ -110,6 +115,13 @@ class usuario extends controller {
       }
    redirecionar("menu/editarusuario/id/{$id[0]['valor']}");             
  }
+  private function alteraradm($id){
+     if(isset($_POST['tipo'])&& $_POST['tipo'] != NULL){
+             $this->editar(array('tipousuario_idtipousuario'=>$_POST['tipo']), "idusuario={$id[0]['valor']}");
+     }
+     else $_SESSION['msg'] = 'Falha ao informar tipo do usuario!';
+    redirecionar("menu/editarusuario/id/{$id[0]['valor']}");       
+ }
  private function editar(array $array,$where){
       $return = crud::atualizar('usuario', $array, $where );
         if($return > 0){ 
@@ -120,7 +132,25 @@ class usuario extends controller {
        }
  }
 
-
+ public function editarusuario($acao){
+     switch ($_GET['acao']){
+         case 'alterarlogin':
+             $this->alterarloginusuario($acao);
+             break;
+         case 'alterarperm':
+             $this->alterarpermissaousuario($acao);
+             break;
+         case 'alterarnome':
+             $this->alterarnomeusuario($acao);
+             break;
+         case 'alterarsenha':
+             $this->alterarsenhausuario($acao);
+             break;
+         case 'alteraradm':
+             $this->alteraradm($acao);
+             break;
+     }
+ }
 
 
 ###-------------TESTE------------###    

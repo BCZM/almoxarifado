@@ -93,10 +93,30 @@ class menu extends controller {
         $this->atr_page['titulo'] = 'AlmoXerife: Material';	
         //classe do controle 
         $this->atr_page['control'] = 'menu/';
+        $usuario_on = $_SESSION['session']['logado']['usuario'][0];  
         
-        $this->atr_page['materiais'] =  crud::consultar(array('*'), 'material');
+                if(isset($_SESSION['addOn'])){ 
+                      $situacao_ativo = ' situacao_idsituacao = 1 AND qtd_atual >=1';  
+                    }
+                else{
+                      if($usuario_on['tipousuario_idtipousuario']=='1')
+                          $situacao_ativo = '';
+                      else
+                          $situacao_ativo = ' situacao_idsituacao = 1 AND qtd_atual >=1 ';  
+                    }  
+                
+
+         
+        $this->atr_page['materiais'] = crud::consultar(array('codigo','nome','data_ultima_entrada','data_ultima_saida',
+                'qtd_ultima_entrada','qtd_ultima_saida','qtd_atual',
+                '(SELECT codigo FROM categoria WHERE idcategoria=categoria_idcategoria) as categoria',
+                'situacao_idsituacao as situacao',
+                'idmaterial'
+                ),'material',$situacao_ativo);
+                
         
         $this->atr_page['grupos'] =  crud::consultar(array('*'), 'categoria');
+        $this->atr_page['situacao'] =  crud::consultar(array('*'), 'situacao');
 
         
         $this->res[] = $this->atr_page;
@@ -111,6 +131,31 @@ class menu extends controller {
     
     //RELACIONADO A REQUISIÇÃO
     public function requisicao(){
+        //titulo da pagina
+        $this->atr_page['titulo'] = 'AlmoXerife: Requisições';	
+        //classe do controle 
+        $this->atr_page['control'] = 'menu/';
+        $usuario_action = $_SESSION['session']['logado']['permissao']['action'];  
+           $vis_all_req = FALSE;
+            $usuario_on = $_SESSION['session']['logado']['usuario'][0];  
+          
+            foreach ($usuario_action as $ls) {
+                if($ls['link']=='allvisreq')
+                            $vis_all_req=TRUE;
+            }    
+        if(!$vis_all_req && $usuario_on['tipousuario_idtipousuario']==1)
+           $ret = crud::consultar(array('(SELECT idsetor FROM setor WHERE idsetor=setor_idsetor) as idsetor'), 'usuario',"idusuario={$usuario_on['idusuario']}");
+        $restricao = empty($ret['idsetor']) ? '':'';
+        $this->atr_page['requisicoes'] = crud::consultar(
+                array('idrequisicao',
+                      'codigo',
+                      'momento',
+                      '(SELECT (SELECT codigo FROM setor WHERE idsetor=setor_idsetor ) FROM usuario WHERE idusuario=usuario_idusuario ) as setor',
+                      '(SELECT nome FROM status WHERE idstatus=status_idstatus) status'
+                    ), 'requisicao');
+        
+        $this->res[] = $this->atr_page;
+        
         $this->view('requisicao', $this->res);
     }
     public function cadastrarrequisicao(){
@@ -131,9 +176,9 @@ class menu extends controller {
     
     
     //MENU PARA GERENCIAR SETOR E USUARIO
-    public function cliente(){
+    public function setores(){
         //titulo da pagina
-        $this->atr_page['titulo'] = 'AlmoXerife: Clientes';	
+        $this->atr_page['titulo'] = 'AlmoXerife: Setores';	
         //classe do controle 
         $this->atr_page['control'] = 'menu/';
         

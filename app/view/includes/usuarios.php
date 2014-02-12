@@ -33,8 +33,8 @@
         
 if($cadastrar):
 ?>
-<a href="#dialog_cadUsu" name="modal" ><img src="<?php echo BARRA.url_base.BARRA.BASEIMAGES?>add_user.png" />Adicionar novo</a>
-<div id="dialog_cadUsu" class="window" >
+<a href="#dialog" name="modal" ><img src="<?php echo BARRA.url_base.BARRA.BASEIMAGES?>add_user.png" />Adicionar novo</a>
+<div id="dialog" class="window" >
     
     <a href="#" class="close">Fechar [X]</a><br />
     <div class="content_dialog">
@@ -61,7 +61,7 @@ if($cadastrar):
                                 
                                 
                                 foreach ($setores as $ls){
-                                        echo "<option value='{$ls['codigo']}'>".utf8_encode($ls['nome'])."</option>";
+                                        echo "<option value='{$ls['idsetor']}'>".utf8_encode($ls['nome'])."</option>";
                                     }
                                     
                                 ?>
@@ -76,6 +76,7 @@ if($cadastrar):
                 <p>
                     <strong>Selecione as páginas que o usuário poderá ter acesso:</strong>
                 </p>
+                <input type="checkbox" onClick="toggleChecked(this.checked)" /> Selecionar todos<br/>
                 <div class="div_menus_actions">
                 <?php
                 
@@ -101,7 +102,7 @@ if($cadastrar):
                           }
                      else{
                        echo "<p {$disabled} >
-                             <input type='checkbox' name='permissao[]' value='{$ls['link']}'>{$ls['nome']}{$aba_menu}<br>
+                             <input type='checkbox' name='permissao[]' value='{$ls['idmenu']}'>".utf8_encode($ls['nome'])."{$aba_menu}<br>
                             </p>";
                          }    
                      }
@@ -161,8 +162,8 @@ if($cadastrar):
         <?php 
               $rows ="";
               foreach ($usuarios as $ls){
-                   $editar_usuario = $editar ? "<a href='".BARRA.url_base."/menu/editarusuario/id/{$ls['idusuario']}' onclick=\"return confirm('Deseja realmente editar o usuário {$ls['nome']}?');\" title='Editar' ><img alt='editar' src='".BARRA.url_base.BARRA.BASEIMAGES."editar.png' /></a>" : '' ;
-                   $deletar_usuario  = $deletar  ? "<a href='".BARRA.url_base."/usuario/deletarusuario/id/{$ls['idusuario']}' onclick=\"return confirm('Deseja realmente excluir o usuário {$ls['nome']}?');\"  title='Excluir' ><img alt='excluir' src='".BARRA.url_base.BARRA.BASEIMAGES."excluir.png' /></a>" : '';
+                   $editar_usuario = $editar ? "<a href='".BARRA.url_base."/menu/editarusuario/id/{$ls['idusuario']}' onclick=\"return confirm('Deseja realmente editar o usuário ".utf8_encode($ls['nome'])."?');\" title='Editar' ><img alt='editar' src='".BARRA.url_base.BARRA.BASEIMAGES."editar.png' /></a>" : '' ;
+                   $deletar_usuario  = $deletar  ? "<a href='".BARRA.url_base."/usuario/deletarusuario/id/{$ls['idusuario']}' onclick=\"return confirm('Deseja realmente excluir o usuário ".utf8_encode($ls['nome'])."?');\"  title='Excluir' ><img alt='excluir' src='".BARRA.url_base.BARRA.BASEIMAGES."excluir.png' /></a>" : '';
                   echo 
                       "<tr>"
                       ."<td>{$ls['login']}</td>"

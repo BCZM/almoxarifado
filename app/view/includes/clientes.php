@@ -4,7 +4,7 @@
 <!--
 	Início de conteúdo
 -->
-<h2>Clientes</h2>
+<h2>Setores</h2>
 
 <div id="botoes">
     <a href="setor"><img src="<?php echo BARRA.url_base.BARRA.BASEIMAGES?>setor.png" />Setores</a>

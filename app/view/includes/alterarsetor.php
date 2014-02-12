@@ -26,7 +26,7 @@
 <p>
     <strong>Código atual:</strong><?php echo $setor[0]['codigo'] ?>
 </p>
-<form method="POST" action="<?php echo BARRA.url_base?>/setor/alterarnomesetor/codigo/<?php echo $setor[0]['idsetor']?>">
+<form method="POST" action="<?php echo BARRA.url_base?>/setor/editarsetor/codigo/<?php echo $setor[0]['idsetor']?>/?acao=alterarnome">
     <p> 
         <strong>Novo nome:</strong><br>
         <input type="text" name="newname" required="required">
@@ -35,7 +35,7 @@
         <input type="submit" onclick="return confirm('Deseja realmente alterar o nome do setor?');" name="alterarN" value="Alterar nome">
     </p>
 </form>
-<form method="POST" action="<?php echo BARRA.url_base?>/setor/alterarcodigosetor/codigo/<?php echo $setor[0]['idsetor']?>">
+<form method="POST" action="<?php echo BARRA.url_base?>/setor/editarsetor/codigo/<?php echo $setor[0]['idsetor']?>/?acao=alterarcodigo">
     <p>
         <strong>Novo código:</strong><br>
         <input type="text" name="newcodigo" required="required">

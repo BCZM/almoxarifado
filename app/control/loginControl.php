@@ -138,7 +138,7 @@ class login extends controller {
   
   
     #OK   
-    public function alterarsenha(){
+    private function alterarsenha(){
        if($_POST['senha'] == $_POST['newsenha']){ 
                 $usu = $_SESSION['session']['logado']['usuario'];
                 $ret = $this->verificaUsu($usu[0]['login'], $_POST['senhaAt']);
@@ -166,7 +166,7 @@ class login extends controller {
     }
     
     #ok
-    public function alterarlogin(){
+    private function alterarlogin(){
        
                 $usu = $_SESSION['session']['logado']['usuario'];
                 $ret = $this->verificaUsu($usu[0]['login'], $_POST['senhaAt']);
@@ -193,7 +193,16 @@ class login extends controller {
         redirecionar('menu/minhaarea');
     }
     
-   
+    public function minhaarea(){
+        switch ($_GET['acao']){
+            case 'alterarlogin':
+                $this->alterarlogin();
+                break;
+            case 'alterarsenha':
+                $this->alterarsenha();
+                break;
+        }
+    }
     
 }
 

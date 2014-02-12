@@ -39,11 +39,11 @@
                 <div class="pos_center">
                     <p>
                             <strong>Nome do setor</strong><br />
-                            <input type="text" name="nomeSetor" value="" required="required" />
+                            <input type="text" name="nomeSetor" value="" width="150px" required="required" />
                     </p>
                     <p>
-                            <strong>Código do setor</strong><br />
-                            <input type="text" name="codigoSetor" value="" required="required" />
+                            <strong>Sigla do setor</strong><br />
+                            <input type="text" name="codigoSetor" value="" width="150px" required="required" />
                     </p>
                     <p>
                         <input type="submit" name="insertS" value="Inserir setor" />
@@ -92,8 +92,8 @@
         
         <?php            
               foreach ($setores as $ls){
-       $deletar_setor = ($deletar) ? "<a href='".BARRA.url_base."/setor/deletarsetor/codigo/{$ls['codigo']}' onclick=\"return confirm('Deseja realmente excluir o setor ".utf8_encode($ls['nome'])."?');\"  title='Excluir' ><img alt='excluir' src='".BARRA.url_base.BARRA.BASEIMAGES."excluir.png' /></a>":''; 
-       $editar_setor  = ($editar)  ? "<a href='".BARRA.url_base."/menu/editarsetor/id/{$ls['codigo']}' onclick=\"return confirm('Deseja realmente editar o setor ".utf8_encode($ls['nome'])."?');\" title='Editar' ><img alt='editar' src='".BARRA.url_base.BARRA.BASEIMAGES."editar.png' /></a>":'';                     
+       $deletar_setor = ($deletar) ? "<a href='".BARRA.url_base."/setor/deletarsetor/codigo/{$ls['idsetor']}' onclick=\"return confirm('Deseja realmente excluir o setor ".utf8_encode($ls['nome'])."?');\"  title='Excluir' ><img alt='excluir' src='".BARRA.url_base.BARRA.BASEIMAGES."excluir.png' /></a>":''; 
+       $editar_setor  = ($editar)  ? "<a href='".BARRA.url_base."/menu/editarsetor/id/{$ls['idsetor']}' onclick=\"return confirm('Deseja realmente editar o setor ".utf8_encode($ls['nome'])."?');\" title='Editar' ><img alt='editar' src='".BARRA.url_base.BARRA.BASEIMAGES."editar.png' /></a>":'';                     
        
                    echo 
                       "<tr>"

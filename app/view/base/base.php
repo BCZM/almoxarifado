@@ -82,9 +82,28 @@
                                 <?php
              if(isset($_SESSION['msg'])){
                 // <!-- Área para mensagem retornada de erro ou aviso  -->
+             ?> 
+                 <script type="text/javascript">
+                    $(function(){
 
-                 echo $_SESSION['msg'];
-                 #var_dump($_SESSION);
+                        $('a[href=#detalhe]').click();
+
+                    });
+                 </script>
+                 <a href="#detalhe" name="modal" ></a>
+
+                 <div id="detalhe" class="window" >  
+                    <a href="#" class="close">Fechar [X]</a><br>
+                     <div class="content_dialog">
+                        <div class="pos_center">
+                            <p>
+                            <?php echo $_SESSION['msg']; ?>
+                            </p>    
+                        </div>
+                     </div>
+                 </div>   
+             <?php 
+                     #var_dump($_SESSION);
                  stopSession('msg');
              }
                                     
@@ -102,7 +121,7 @@
 		</div>
 	</div>
     <div id="top"><img src="<?php echo BARRA.url_base.BARRA.BASEIMAGES ?>subir.png" alt="Subir ao topo da página"  title="Ir ao topo"/></div>
-
+    
         <!-- Máscara para cobrir a tela -->
         <div id="mask"></div>
 </body>
